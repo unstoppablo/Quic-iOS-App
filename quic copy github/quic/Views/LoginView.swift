@@ -19,13 +19,15 @@ let lightBlue = Color(red: 0.90, green: 0.93, blue: 0.96, opacity: 1.00)
 struct LoginView: View {
     @State var userName: String = ""
     @State var password: String = ""
-    @State var text = ""
+    //@State var text = ""
     
+    @State var text: String = "TextField Text"
+
 
 
     
     var body: some View {
-        NavigationView {
+//        NavigationView {
             
                 VStack {
                     Text("quic")
@@ -51,20 +53,38 @@ struct LoginView: View {
                     
                             
         //            CustomTextField(placeHolder: "Password", value: $password, lineColor: mintGreen, width: 2)
-                    
+                    Text("email")
+                        .foregroundColor(mintCream)
+                        .font(.subheadline)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     TextField("Enter username", text: $userName)
                         .modifier(customViewModifier(roundedCornes: 6, startColor: mainPurple, endColor: mintCream, textColor: .white))
                         .keyboardType(.emailAddress)
                     
+                    Text("password")
+                        .foregroundColor(mintCream)
+                        .font(.subheadline)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     TextField("Enter password", text: $userName)
                         .modifier(customViewModifier(roundedCornes: 6, startColor: mintCream, endColor: mainPurple, textColor: .white))
+                        .padding(.bottom, 20)
                     
-                    NavigationLink(destination: DashboardView()) {
-                            Text("Log in")
-                            .foregroundColor(mainPurple)
-                            .fontWeight(.semibold)
-                    }.navigationTitle("Sign in") // CHANGE NAV TITLE COLOR FFS
-                    .padding()
+                    // log in button only works when text is pressed
+                    Button(action: {
+                     }) {
+                         NavigationLink(destination: DashboardView()) {
+                         Text("Log In")
+                                 .foregroundColor(mintCream)
+                                 .fontWeight(.semibold)
+                         }
+                         .frame(maxWidth: .infinity)
+                         
+                     }
+                     .padding()
+                     .background(mainPurple)
+                     .cornerRadius(6)
+                     
+                    
                         
                     
                     HStack {
@@ -73,26 +93,34 @@ struct LoginView: View {
                             .font(.subheadline)
                             .fontWeight(.light)
                         
-                        Text("sign up!")
-                            .foregroundColor(mintCream)
-                            .font(.subheadline)
-                            .fontWeight(.semibold)
+                        NavigationLink (destination: SignUpView()) {
+                            Text("sign up!")
+                                .foregroundColor(mintCream)
+                                .font(.subheadline)
+                                .fontWeight(.semibold)
+                        }
                     }
                     .padding(.bottom, 150)
-                    
+                    .navigationTitle("") // CHANGE NAV TITLE COLOR FFS
+                    .navigationBarHidden(true)
+                    .navigationBarBackButtonHidden(true)
 
                     
                 }
+                
+                .padding()
                 .padding()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(mainGray)
-        }
+//        }
     }
 }
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView()
+        NavigationView {
+            LoginView()
+        }
     }
 }
 
@@ -130,15 +158,32 @@ struct customViewModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .padding()
-            .background(LinearGradient(gradient: Gradient(colors: [startColor, endColor]), startPoint: .topLeading, endPoint: .bottomTrailing))
+//            .background(LinearGradient(gradient: Gradient(colors: [startColor, endColor]), startPoint: .topLeading, endPoint: .bottomTrailing))
             .cornerRadius(roundedCornes)
             .padding(3)
             .foregroundColor(textColor)
-//            .overlay(RoundedRectangle(cornerRadius: roundedCornes)
-//                        .stroke(LinearGradient(gradient: Gradient(colors: [startColor, endColor]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 2.5))
+            .overlay(RoundedRectangle(cornerRadius: roundedCornes)
+                        .stroke(LinearGradient(gradient: Gradient(colors: [startColor, endColor]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 2.5))
             .font(.custom("Poppins-ExtraLight", size: 18))
             
     }
 }
 
 
+
+// for changing placeholder color
+struct SuperTextField: View {
+    
+    var placeholder: Text
+    @Binding var text: String
+    var editingChanged: (Bool)->() = { _ in }
+    var commit: ()->() = { }
+    
+    var body: some View {
+        ZStack(alignment: .leading) {
+            if text.isEmpty { placeholder }
+            TextField("", text: $text, onEditingChanged: editingChanged, onCommit: commit)
+        }
+    }
+    
+}

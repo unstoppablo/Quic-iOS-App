@@ -9,14 +9,15 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        NavigationView{
-            NavigationLink(destination: LoginView()) {
-                Text("Log in")
-                .foregroundColor(mainPurple)
-                .fontWeight(.semibold)
-            }
-            .padding()
-        }
+//        NavigationView{
+//            NavigationLink(destination: LoginView()) {
+//                Text("Log in")
+//                .foregroundColor(mainPurple)
+//                .fontWeight(.semibold)
+//            }
+//            .padding()
+//        }
+        Text("Hello bitch")
     }
 }
 

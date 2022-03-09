@@ -11,7 +11,9 @@ import SwiftUI
 struct quicApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationView {
+                LoginView()
+            }
         }
     }
 }
