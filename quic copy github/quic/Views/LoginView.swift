@@ -17,102 +17,31 @@ let mintCream = Color(red: 0.94, green: 1.00, blue: 0.98, opacity: 1.00)
 let lightBlue = Color(red: 0.90, green: 0.93, blue: 0.96, opacity: 1.00)
 
 struct LoginView: View {
-    @State var userName: String = ""
-    @State var password: String = ""
-    //@State var text = ""
-    
-    @State var text: String = "TextField Text"
-
-
-
     
     var body: some View {
-//        NavigationView {
+        VStack {
+            Text("quic")
+                .font(.system(size: 80.0))
+                .foregroundColor(titlePurple)
+                .fontWeight(.light)
+                .padding(.top, 150)
+            Text("connect. quicker")
+                .foregroundColor(.white)
+                .font(.title3)
+                .fontWeight(.thin)
+                .padding(.bottom, 100)
             
-                VStack {
-                    Text("quic")
-                        .font(.system(size: 80.0))
-                        .foregroundColor(titlePurple)
-                        .fontWeight(.light)
-                        .padding(.top, 150)
-                    Text("connect. quicker")
-                        .foregroundColor(.white)
-                        .font(.title3)
-                        .fontWeight(.thin)
-                        .padding(.bottom, 100)
-                    
-                    Spacer()
-                    
-        //            TextField("User name (email address)", text: $username)
-        //                .padding()
-        //                .disableAutocorrection(true)
-        //                .autocapitalization(.none)
-        //                .foregroundColor(mintGreen)
-        //                .background(.white)
-        //                .cornerRadius(15)
-                    
-                            
-        //            CustomTextField(placeHolder: "Password", value: $password, lineColor: mintGreen, width: 2)
-                    Text("email")
-                        .foregroundColor(mintCream)
-                        .font(.subheadline)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    TextField("Enter username", text: $userName)
-                        .modifier(customViewModifier(roundedCornes: 6, startColor: mainPurple, endColor: mintCream, textColor: .white))
-                        .keyboardType(.emailAddress)
-                    
-                    Text("password")
-                        .foregroundColor(mintCream)
-                        .font(.subheadline)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    TextField("Enter password", text: $userName)
-                        .modifier(customViewModifier(roundedCornes: 6, startColor: mintCream, endColor: mainPurple, textColor: .white))
-                        .padding(.bottom, 20)
-                    
-                    // log in button only works when text is pressed
-                    Button(action: {
-                     }) {
-                         NavigationLink(destination: DashboardView()) {
-                         Text("Log In")
-                                 .foregroundColor(mintCream)
-                                 .fontWeight(.semibold)
-                         }
-                         .frame(maxWidth: .infinity)
-                         
-                     }
-                     .padding()
-                     .background(mainPurple)
-                     .cornerRadius(6)
-                     
-                    
-                        
-                    
-                    HStack {
-                        Text("don't have an account?")
-                            .foregroundColor(.white)
-                            .font(.subheadline)
-                            .fontWeight(.light)
-                        
-                        NavigationLink (destination: SignUpView()) {
-                            Text("sign up!")
-                                .foregroundColor(mintCream)
-                                .font(.subheadline)
-                                .fontWeight(.semibold)
-                        }
-                    }
-                    .padding(.bottom, 150)
-                    .navigationTitle("") // CHANGE NAV TITLE COLOR FFS
-                    .navigationBarHidden(true)
-                    .navigationBarBackButtonHidden(true)
+            Spacer()
+            
+            LogIn()
+            
+            SignUpRedirect()
 
-                    
-                }
-                
-                .padding()
-                .padding()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(mainGray)
-//        }
+            
+        }
+        .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(mainGray)
     }
 }
 
@@ -186,4 +115,113 @@ struct SuperTextField: View {
         }
     }
     
+}
+
+//struct LogInButton: View {
+//    // log in button only works when text is pressed
+//    var body: some View {
+//        Button(action: {
+//        }) {
+//            NavigationLink("Log in", destination: DashboardView())
+//                .foregroundColor(mintCream)
+//                .frame(maxWidth: .infinity)
+//
+//        }
+//        .padding()
+//        .background(mainPurple)
+//        .cornerRadius(6)
+//    }
+//}
+
+//struct PasswordField: View {
+//    @State var password: String = ""
+//
+//    var body: some View {
+//        SecureField("Enter password", text: self.$password)
+//            .modifier(customViewModifier(roundedCornes: 6, startColor: mainPurple, endColor: mainPurple, textColor: .white))
+//            .padding(.bottom, 10)
+//    }
+//}
+
+//struct UsernameField: View {
+//    @State var userName: String = ""
+//
+//    var body: some View {
+//        TextField("Enter username", text: self.$userName)
+//            .modifier(customViewModifier(roundedCornes: 6, startColor: mainPurple, endColor: mainPurple, textColor: .white))
+//            .keyboardType(.emailAddress)
+//    }
+//}
+
+//struct ForgotPassword: View {
+//    var body: some View {
+//        NavigationLink (destination: SignUpView()) {
+//            Text("Forgot password?")
+//                .foregroundColor(mintCream)
+//                .font(.caption)
+//                .fontWeight(.semibold)
+//        }
+//        .padding(.bottom, 20)
+//        .frame(maxWidth: .infinity, alignment: .trailing)
+//    }
+//}
+
+struct SignUpRedirect: View {
+    var body: some View {
+        HStack {
+            Text("don't have an account?")
+                .foregroundColor(.white)
+                .font(.caption)
+                .fontWeight(.light)
+            
+            NavigationLink (destination: SignUpView()) {
+                Text("sign up!")
+                    .foregroundColor(mintCream)
+                    .font(.caption)
+                    .fontWeight(.semibold)
+                    .underline(true, color: mainPurple)
+            }
+        }
+        .padding(.bottom, 150)
+        .navigationTitle("") // CHANGE NAV TITLE COLOR FFS
+        .navigationBarHidden(true)
+        .navigationBarBackButtonHidden(true)
+    }
+}
+
+struct LogIn: View {
+    @StateObject private var loginVM = LoginViewModel()
+    @State var userName: String = ""
+    @State var password: String = ""
+
+    var body: some View {
+        TextField("Enter username", text: self.$userName)
+            .modifier(customViewModifier(roundedCornes: 6, startColor: mainPurple, endColor: mainPurple, textColor: .white))
+            .keyboardType(.emailAddress)
+        
+        SecureField("Enter password", text: self.$password)
+            .modifier(customViewModifier(roundedCornes: 6, startColor: mainPurple, endColor: mainPurple, textColor: .white))
+            .padding(.bottom, 10)
+        
+        NavigationLink (destination: SignUpView()) {
+            Text("Forgot password?")
+                .foregroundColor(mintCream)
+                .font(.caption)
+                .fontWeight(.semibold)
+        }
+        .padding(.bottom, 20)
+        .frame(maxWidth: .infinity, alignment: .trailing)
+        
+        Button(action: {
+        }) {
+            
+            NavigationLink("Log in", destination: DashboardView())
+                .foregroundColor(mintCream)
+                .frame(maxWidth: .infinity)
+            
+        }
+        .padding()
+        .background(mainPurple)
+        .cornerRadius(6)
+    }
 }
