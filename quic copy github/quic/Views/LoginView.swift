@@ -17,31 +17,42 @@ let mintCream = Color(red: 0.94, green: 1.00, blue: 0.98, opacity: 1.00)
 let lightBlue = Color(red: 0.90, green: 0.93, blue: 0.96, opacity: 1.00)
 
 struct LoginView: View {
-    
-    var body: some View {
-        VStack {
-            Text("quic")
-                .font(.system(size: 80.0))
-                .foregroundColor(titlePurple)
-                .fontWeight(.light)
-                .padding(.top, 150)
-            Text("connect. quicker")
-                .foregroundColor(.white)
-                .font(.title3)
-                .fontWeight(.thin)
-                .padding(.bottom, 100)
-            
-            Spacer()
-            
-            LogIn()
-            
-            SignUpRedirect()
+    @ObservedObject var keyboardResponder = KeyboardResponder()
 
-            
-        }
-        .padding()
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(mainGray)
+    var body: some View {
+//        ZStack {
+//            mainGray.ignoresSafeArea()
+            VStack {
+                Text("quic")
+                    .font(.system(size: 80.0))
+                    .foregroundColor(titlePurple)
+                    .fontWeight(.light)
+                    .padding(.top, 150)
+                Text("connect. quicker")
+                    .foregroundColor(.white)
+                    .font(.title3)
+                    .fontWeight(.thin)
+                    .padding(.bottom, 45)
+                    
+                
+                //Spacer()
+                
+                LogIn()
+                
+
+                
+                
+                SignUpRedirect()
+                //Spacer(minLength: 100)
+
+                
+            }
+            .padding()
+            .padding(.top, 50)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(mainGray)
+            .offset(y: -keyboardResponder.currentHeight*0.35)
+//        }
     }
 }
 
@@ -117,55 +128,6 @@ struct SuperTextField: View {
     
 }
 
-//struct LogInButton: View {
-//    // log in button only works when text is pressed
-//    var body: some View {
-//        Button(action: {
-//        }) {
-//            NavigationLink("Log in", destination: DashboardView())
-//                .foregroundColor(mintCream)
-//                .frame(maxWidth: .infinity)
-//
-//        }
-//        .padding()
-//        .background(mainPurple)
-//        .cornerRadius(6)
-//    }
-//}
-
-//struct PasswordField: View {
-//    @State var password: String = ""
-//
-//    var body: some View {
-//        SecureField("Enter password", text: self.$password)
-//            .modifier(customViewModifier(roundedCornes: 6, startColor: mainPurple, endColor: mainPurple, textColor: .white))
-//            .padding(.bottom, 10)
-//    }
-//}
-
-//struct UsernameField: View {
-//    @State var userName: String = ""
-//
-//    var body: some View {
-//        TextField("Enter username", text: self.$userName)
-//            .modifier(customViewModifier(roundedCornes: 6, startColor: mainPurple, endColor: mainPurple, textColor: .white))
-//            .keyboardType(.emailAddress)
-//    }
-//}
-
-//struct ForgotPassword: View {
-//    var body: some View {
-//        NavigationLink (destination: SignUpView()) {
-//            Text("Forgot password?")
-//                .foregroundColor(mintCream)
-//                .font(.caption)
-//                .fontWeight(.semibold)
-//        }
-//        .padding(.bottom, 20)
-//        .frame(maxWidth: .infinity, alignment: .trailing)
-//    }
-//}
-
 struct SignUpRedirect: View {
     var body: some View {
         HStack {
@@ -182,7 +144,6 @@ struct SignUpRedirect: View {
                     .underline(true, color: mainPurple)
             }
         }
-        .padding(.bottom, 150)
         .navigationTitle("") // CHANGE NAV TITLE COLOR FFS
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
@@ -190,13 +151,15 @@ struct SignUpRedirect: View {
 }
 
 struct LogIn: View {
-    @StateObject private var loginVM = LoginViewModel()
+    //@StateObject private var loginVM = LoginViewModel()
     @State var userName: String = ""
     @State var password: String = ""
+    @State var showDashboard: Bool = false
 
     var body: some View {
         TextField("Enter username", text: self.$userName)
             .modifier(customViewModifier(roundedCornes: 6, startColor: mainPurple, endColor: mainPurple, textColor: .white))
+            .autocapitalization(.none)
             .keyboardType(.emailAddress)
         
         SecureField("Enter password", text: self.$password)
@@ -225,3 +188,12 @@ struct LogIn: View {
         .cornerRadius(6)
     }
 }
+
+
+
+//func isAuthenticated(userString: String, userPassword: String) -> Bool {
+//    let isUser: Bool = (userString == testUser.email || userString == testUser.username)
+//    let isPassword: Bool = userString == testUser.password
+//
+//    return isUser && isPassword
+//}

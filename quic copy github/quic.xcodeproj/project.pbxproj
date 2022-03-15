@@ -19,6 +19,7 @@
 		3F2DDE8927CD7411000A8451 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2DDE8827CD7411000A8451 /* LoginView.swift */; };
 		3F2DDEB227CD8501000A8451 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2DDEB127CD8501000A8451 /* SignUpView.swift */; };
 		3F2DDEB427CD8FCE000A8451 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2DDEB327CD8FCE000A8451 /* DashboardView.swift */; };
+		3F73901427E0044500CFF765 /* KeyboardResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F73901327E0044500CFF765 /* KeyboardResponder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		3F2DDE8827CD7411000A8451 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		3F2DDEB127CD8501000A8451 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		3F2DDEB327CD8FCE000A8451 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		3F73901327E0044500CFF765 /* KeyboardResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardResponder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +95,7 @@
 				3F2DDE7B27CD73F3000A8451 /* ContentView.swift */,
 				3F2DDE7D27CD73F7000A8451 /* Assets.xcassets */,
 				3F2DDE7F27CD73F7000A8451 /* Preview Content */,
+				3F73901327E0044500CFF765 /* KeyboardResponder.swift */,
 			);
 			path = quic;
 			sourceTree = "<group>";
@@ -189,6 +192,7 @@
 				3F2DDEB227CD8501000A8451 /* SignUpView.swift in Sources */,
 				3F2DDE8927CD7411000A8451 /* LoginView.swift in Sources */,
 				3F2A994027D966D600D06353 /* Users.swift in Sources */,
+				3F73901427E0044500CFF765 /* KeyboardResponder.swift in Sources */,
 				3F2A994B27DAB09900D06353 /* UserOO.swift in Sources */,
 				3F2DDEB427CD8FCE000A8451 /* DashboardView.swift in Sources */,
 				3F2A994427D979EA00D06353 /* LoginViewModel.swift in Sources */,

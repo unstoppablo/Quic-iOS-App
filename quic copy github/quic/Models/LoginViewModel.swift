@@ -7,18 +7,18 @@
 
 import Foundation
 
-class LoginViewModel: ObservableObject {
-    @Published var user = User()
-    
-    func getName() -> String {
-        return user.name
-    }
-    
-    func getEmail() -> String {
-        return user.email
-    }
-    
-    func getPassword() -> String {
-        return user.getPassword()
-    }
-}
+//class LoginViewModel: ObservableObject {
+//    @Published var user = User()
+//    
+//    func getName() -> String {
+//        return user.name
+//    }
+//    
+//    func getEmail() -> String {
+//        return user.email
+//    }
+//    
+//    func getPassword() -> String {
+//        return user.getPassword()
+//    }
+//}

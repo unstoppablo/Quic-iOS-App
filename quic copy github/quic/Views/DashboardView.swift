@@ -128,6 +128,8 @@ struct DashboardView_Previews: PreviewProvider {
 struct myUser : Identifiable {
     var id: Int
     var name: String
+    var password: String
+    var username: String
     var email: String
     var following: Int
     var followers: Int
@@ -135,7 +137,7 @@ struct myUser : Identifiable {
     var bio : String = ""
 }
 
-var testUser = myUser(id: 2022, name: "John", email: "jdoe1998@gmail.com", following: 20, followers: 35, socials: ["Facebook":"Johnathan_Doe", "Instagram":"johnDoe2022", "Twitter":"lizzardDude200", "LinkedIn":"Professional Johnathan"], bio: "I love hotdogs and lizzards.")
+var testUser = myUser(id: 2022, name: "John", password: "password2022", username: "johnDoe26", email: "jdoe1998@gmail.com", following: 20, followers: 35, socials: ["Facebook":"Johnathan_Doe", "Instagram":"johnDoe2022", "Twitter":"lizzardDude200", "Linkedin":"Professional Johnathan", "Github":"Coder John", "Snapchat":"SnapKingJoJo", "Tiktok":"TikkytokkyJoe"], bio: "I love hotdogs and lizzards.")
 
 @ViewBuilder func linkDisplay(social: String, handler: String) -> some View {
     socialInfo(imageName: social, user: handler, link: social)
@@ -154,8 +156,8 @@ struct socialInfo : View {
              HStack{
                  Image(imageName)
                      .resizable()
-                     .aspectRatio(contentMode: .fit)
-                     .frame(width: 50, height: 30, alignment: .leading)
+                     .aspectRatio(contentMode: .fill)
+                     .frame(width: 45, height: 30, alignment: .leading)
                  Link(user, destination: URL(string: "https://www.\(link).com")!)
                      .foregroundColor(mainGray)
                      .font(.headline)

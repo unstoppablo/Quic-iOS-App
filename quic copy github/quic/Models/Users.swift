@@ -7,15 +7,20 @@
 
 import Foundation
 
-struct User: Codable, Identifiable {
-    var id = UUID()
-    var name: String = "Pablo Labbate"
-    var email: String = "plabbate@chapman.edu"
-    private var password: String = "password2022"
+
+
+struct User : Codable {
+    var id: Int = -1
+    var name: String = ""
+    var username: String = ""
+    private var password: String = ""
+    var email: String = ""
+    var following: Int = 0
+    var followers: Int = 0
+    var socials: [String: String] = [:]
+    var bio : String = ""
     
     func getPassword() -> String {
         return password
     }
 }
-
-
