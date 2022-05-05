@@ -1,0 +1,24 @@
+[
+  {
+    "id": 2024,
+    "name": "Pablo Labbate",
+    "username": "unstoppablo"
+    "password": "password2022"
+    "email": "plabbate@chapman.edu",
+    "following": "30",
+    "followers": "43",
+    "socials": ["Instagram":"unstoppablo", "Linkedin":"Pablo Labbate", "Github":"unstoppablon", "Snapchat":"pablo17labbate", "Tiktok":"bepplo"],
+    "bio": "cheese and macarooni"
+  },
+  {
+      "id": 2024,
+      "name": "John Johnson",
+      "username": "jjohnson"
+      "password": "passpasswowo"
+      "email": "jjaso@email.edu",
+      "following": "22",
+      "followers": "21",
+      "socials": ["Facebook":"Johnathan_Doe", "Instagram":"johnDoe2022", "Twitter":"lizzardDude200", "Linkedin":"Professional Johnathan", "Github":"Coder John", "Snapchat":"SnapKingJoJo", "Tiktok":"TikkytokkyJoe"],
+      "bio": "hello hello"
+  }
+]
