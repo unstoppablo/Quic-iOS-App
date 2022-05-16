@@ -33,17 +33,57 @@ func nameField(name: String?) -> String {
     }
 }
 
+func newNameValid(name: String?) -> Bool {
+    if (name == "" || name == name) {
+        return false
+    }
+    else {
+        return true
+    }
+}
+
+func newEmailValid(email: String?) -> Bool {
+    if (email == "" || email == email) {
+        return false
+    }
+    else {
+        return true
+    }
+}
+
+func newBioValid(bio: String?) -> Bool {
+    if (bio == "" || bio == bio) {
+        return false
+    }
+    else {
+        return true
+    }
+}
+
+
 struct SettingsView: View {
     @Binding var darkModeEnabled: Bool
     @Binding var systemThemeEnabled: Bool
     @State var shouldShowLogOutOptions = false
     @State var shouldShowSocialMediaOptions = false
 
-    @State private var email = ""
-    @State private var name = ""
+    
+
     @State private var following = 0
     @State private var followers = 0
     @State private var numSocials = 0
+    
+    @State private var email = ""
+    @State private var name = ""
+    @State private var bio = ""
+    
+    @State var nameInEditMode = false
+    @State var emailInEditMode = false
+    @State var bioInEditMode = false
+    
+    @State private var isPresentingEditView = false
+
+
 
 
 
@@ -59,26 +99,33 @@ struct SettingsView: View {
                 
                 Section(header: Text("Personal Information")) {
                     
-                    
-                    TextField("Email: \(vm.user?.email ?? "")", text: $email)
-                        .keyboardType(.emailAddress)
-                        .foregroundColor(.textColor)
-                        .autocapitalization(.none)
-                    TextField("Name: \(vm.user?.name ?? "")", text: $name)
-                        .keyboardType(.emailAddress)
-                        .foregroundColor(.textColor)
-                        .autocapitalization(.none)
+//                    HStack {
+//                        if nameInEditMode {
+//                            TextField("Email: \(vm.user?.email ?? "")", text: $email)
+//                                .keyboardType(.emailAddress)
+//                                .foregroundColor(.textColor)
+//                                .autocapitalization(.none)
+//
+//
+//                        } else {
+//                            Text("Email: \(vm.user?.email ?? "")")
+//                        }
+//                        Spacer()
+//                        Button(action: {
+//                            self.nameInEditMode.toggle()
+//                        }) {
+//                            Text(nameInEditMode ? "Done" : "Edit")
+//                                .foregroundColor(Color.blue)
+//                        }
+//                    }
+                    Text("Email: \(vm.user?.email ?? "")")
+                    Text("Name: \(vm.user?.name ?? "")")
+                    Text("Bio: \(vm.user?.bio ?? "")")
+
                     
                 }
                 
-//                Button {
-//                    shouldShowSocialMediaOptions.toggle()
-//                } label: {
-//                    Text("Add platform")
-//                }
-//                .fullScreenCover(isPresented: $shouldShowSocialMediaOptions, onDismiss: nil) {
-//                    addSocialMedia()
-//                }
+
                 
                 NavigationLink(destination: addSocialMedia()) {
                     Text("Add platform")
@@ -92,12 +139,7 @@ struct SettingsView: View {
                             SystemThemeManager.shared.handleTheme(darkMode: darkModeEnabled, system: systemThemeEnabled)
                         })
                     
-//                    Toggle(isOn: $systemThemeEnabled, label: {
-//                        Text("Use system settings")
-//                    })
-//                        .onChange(of: systemThemeEnabled, perform: { _ in
-//                            SystemThemeManager.shared.handleTheme(darkMode: darkModeEnabled, system: systemThemeEnabled)
-//                        })
+
                 }
                 
                 
@@ -108,11 +150,46 @@ struct SettingsView: View {
                         .foregroundColor(.red)
                         .font(.system(size: 24))
                 }
+            }.toolbar {
+                Button("Edit") {
+                    isPresentingEditView = true
+                }
             }
             .navigationTitle("Settings")
 //                .navigationTitle("")
 //                .navigationBarHidden(true)
             .navigationBarBackButtonHidden(true)
+            .sheet(isPresented: $isPresentingEditView) {
+                NavigationView {
+                    Form {
+                        
+                        Section(header: Text("Personal Information")) {
+                            TextField("Email: \(vm.user?.email ?? "")", text: $email)
+                                .keyboardType(.emailAddress)
+                                .foregroundColor(.textColor)
+                                .autocapitalization(.none)
+                            TextField("Name: \(vm.user?.name ?? "")", text: $name)
+                                .foregroundColor(.textColor)
+                                .autocapitalization(.none)
+                            TextField("Bio: \(vm.user?.bio ?? "")", text: $bio)
+                                .foregroundColor(.textColor)
+                        }
+                    }
+                    .toolbar {
+                        ToolbarItem(placement: .cancellationAction) {
+                            Button("Cancel") {
+                                isPresentingEditView = false
+                            }
+                        }
+                        ToolbarItem() {
+                            Button("Done") {
+//                                    addChangesToStorage(newEmail: email, newName: name, newBio: bio)
+                                isPresentingEditView = false
+                            }
+                        }
+                    }
+                }
+            }
             .actionSheet(isPresented: $shouldShowLogOutOptions) {
             .init(title: Text("Sign out"), message: Text(""), buttons: [.destructive(Text("Sign out"), action: {
                     print("handle sign out")
@@ -125,6 +202,18 @@ struct SettingsView: View {
         }
         }
     }
+    
+//    private func addChangesToStorage(newEmail: String, newName: String, newBio: String)  {
+//        FirebaseManager.shared.auth.currentUser?.updateEmail(to: email) { error in
+//            if let error = error {
+//                vm.errorMessage =  "failed update email: \(error)"
+//
+//                print("failed to update email: \(error)")
+//                return
+//            }
+//        }
+//
+//    }
 }
 
 struct SettingsView_Previews: PreviewProvider {
@@ -146,53 +235,50 @@ struct addSocialMedia: View {
 
     
     var body: some View {
-        NavigationView {
-            VStack {
-                Form {
-                    Section {
-                        Picker(selection: $sel, label: Text("Select a platform")) {
+        VStack {
+            Form {
+                Section {
+                    Picker(selection: $sel, label: Text("Select a platform")) {
 //                            ForEach(socialMedias, id: \.self) {
 //                                Text($0)
 //                            }
-                            ForEach(0 ..< socialMedias.count) { (i) in
-                                HStack {
-                                    Image(self.socialMedias[i])
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .frame(width: 45, height: 30, alignment: .leading)
-                                    Text(self.socialMedias[i])
-                                }.tag(i)
-                            }
-                            
+                        ForEach(0 ..< socialMedias.count) { (i) in
+                            HStack {
+                                Image(self.socialMedias[i])
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 35, height: 35, alignment: .leading)
+                                Text(self.socialMedias[i])
+                            }.tag(i)
                         }
-                        .onChange(of: sel) { _ in self.disabled = false }
-                        
-                        
-                                                 TextField("Username", text: $username)
-                            .foregroundColor(.textColor)
-                            .autocapitalization(.none)
-                        
                         
                     }
+                    .onChange(of: sel) { _ in self.disabled = false }
                     
-                    Section {
-                        Button {
-//                            addPlatformResult = addToStorage(selectedMedia: selectedMedia, username: username)
-                            addPlatformResult = addToStorage(selectedMedia: self.socialMedias[sel], username: username)
-                        } label: {
-                            Text("Add platform")
-                        }
-                        .buttonStyle(CustomButtonStyle(disabled: self.disabled))
-                        
-                        
-                    }
+                    
+                    TextField("Username", text: $username)
+                        .foregroundColor(.textColor)
+                        .autocapitalization(.none)
+                    
+                    
                 }
-                if addPlatformResult {
-                    Text("Account successfully added.")
-                        .foregroundColor(mainPurple)
+                
+                Section {
+                    Button {
+//                            addPlatformResult = addToStorage(selectedMedia: selectedMedia, username: username)
+                        addPlatformResult = addToStorage(selectedMedia: self.socialMedias[sel], username: username)
+                    } label: {
+                        Text("Add platform")
+                    }
+                    .buttonStyle(CustomButtonStyle(disabled: self.disabled))
+                    
+                    
                 }
             }
-            
+            if addPlatformResult {
+                Text("Account successfully added.")
+                    .foregroundColor(mainPurple)
+            }
         }
     }
     
@@ -220,3 +306,5 @@ struct CustomButtonStyle: ButtonStyle {
         .foregroundColor(disabled ? .gray : .blue)
     }
 }
+
+
