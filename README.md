@@ -1,8 +1,17 @@
-# quicApp
-Capstone Project
+# Quic: iOS App
+Quic allows users to connect with each other faster. By presenting a QR code or looking up usernames, users can find other user's accounts and see all of their listed social medias. 
+
+![unnamed](https://user-images.githubusercontent.com/66883135/192195370-22231edf-9f2f-4bc2-9eea-0cdd1e1e4bae.png)
 
 
-**Release notes:**
-What features were included in this final release, what known bugs exist, and any additional information.
-The latest version of Quic offers realtime display of user information. Previously, dummy data was used for the social media list on the dashboard. Similarly, real user information was only updated after the user logged out and then back in. Now, the app works entirely with realtime data; when a social media is added or deleted, everything is updated accordingly. Any changes in the database are automatically reflected on the app. It also offers the add social medias page, which automatically adds it to the database and reflects it on the dashboard. Similarly, the option to edit personal information is added too, where users can change their email, name, and bio. Once more, this is reflected automatically both in the database and dashboard. There are no known bugs.
+**Features:**
+- Secure authentication and account creation features
+- Customizable profiles
+- Ability to look up other users and find their social medias, which upon tapping redirects to the respective app
+- Ability to list and delete social medias from own profile
+- Dark and Light themes
 
+**Nitty Gritty:**
+- MVVM Design
+- Firebase Firestore with realtime authentication and information updates
+- Compatible with any iOS or iPadOS device
