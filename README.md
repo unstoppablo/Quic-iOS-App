@@ -1,7 +1,7 @@
 # Quic: iOS App
 Quic allows users to connect with each other faster. By presenting a QR code or looking up usernames, users can find other user's accounts and see all of their listed social medias. 
 
-<img src="[https://your-image-url.type](https://user-images.githubusercontent.com/66883135/192195370-22231edf-9f2f-4bc2-9eea-0cdd1e1e4bae.png)" width="300"
+<img src="[https://your-image-url.type](https://user-images.githubusercontent.com/66883135/192195693-5fa27ef3-98e8-4774-83a3-adf5c90f9666.png)" width="100"
 
 **Features:**
 - Secure authentication and account creation features
